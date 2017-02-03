@@ -126,7 +126,7 @@ impl wl_registry::Handler for WaylandEnv {
         } else if interface == "wl_seat" && self.seat.is_none() {
             // Only grab the first seat
             // TODO: Handle multi-seat-setup?
-            assert!(version >= 5, "Version 5 of seat interface is needed by glutin.");
+            assert!(version >= 5, format!("Version 5 of seat interface is needed by glutin, got version {}", version));
             let seat = self.registry.bind::<wl_seat::WlSeat>(5, name)
                            .expect("Registry cannot be dead");
             evqh.register::<_, WaylandEnv>(&seat, self.my_id);
